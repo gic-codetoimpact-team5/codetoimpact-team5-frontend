@@ -1,13 +1,17 @@
 'use client'
-// Chakra imports
+
 import { Button, Flex,   useColorModeValue } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
-// Assets
-
 
 function Dropzone(props:{content:JSX.Element|string, [x:string]:any} ) {
-  const { content, ...rest } = props;
-  const { getRootProps, getInputProps } = useDropzone();
+  const { content, onDrop, ...rest } = props;
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      // Call the onDrop callback with the accepted files
+      onDrop(acceptedFiles);
+    },
+  });
+
   const bg = useColorModeValue("gray.100", "navy.700");
   const borderColor = useColorModeValue("gray.300", "whiteAlpha.100");
   return (

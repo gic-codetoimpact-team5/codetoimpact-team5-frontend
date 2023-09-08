@@ -31,9 +31,9 @@ import { MdOutlineCloudUpload } from 'react-icons/md';
 
 // Configure AWS SDK with your credentials and S3 bucket information
 AWS.config.update({
-  accessKeyId: 'YOUR_ACCESS_KEY_ID',
-  secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
-  region: 'YOUR_AWS_REGION',
+  accessKeyId: 'AKIA4DD62ITU3OKMQXS4',
+  secretAccessKey: 'h1fXsPcWAr/5xf6q8u47hlTaNn2CYJPm3B12nkJX',
+  region: 'ap-southeast-1',
 });
 
 const s3 = new AWS.S3();
@@ -56,7 +56,7 @@ export default function NewProduct() {
       // Iterate through each file and upload it to S3
       for (const file of files) {
         const params = {
-          Bucket: 'YOUR_S3_BUCKET_NAME',
+          Bucket: 'test-bucket-codetoimpact',
           Key: `uploads/${file.name}`, // Specify the S3 path where you want to store the file
           Body: file, // The file content
           ACL: 'public-read', // Adjust permissions as needed
@@ -315,7 +315,7 @@ export default function NewProduct() {
               <Text color={textColor} fontSize="2xl" fontWeight="700" mb="20px">
                 Media
               </Text>
-              <Dropzone
+              <Dropzone 
                 onDrop={handleFileUpload}
                 content={
                   <Box>
