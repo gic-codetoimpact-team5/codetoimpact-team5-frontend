@@ -19,7 +19,8 @@ Project Structure
 
 Our frontend project is organized as follows:
 
-frontend/
+```
+codetoimpact-team5-frontend/
 ├─ public/
 │ ├─ index.html
 │ └─ (other static files)
@@ -40,6 +41,7 @@ frontend/
 ├─ .gitignore
 ├─ package.json
 └─ (other configuration files)
+```
 
 - `public/`: Contains static assets and the main HTML file.
 - `src/`: Contains Next.js pages, components, styles, and configuration files.
