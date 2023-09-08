@@ -1,12 +1,15 @@
 # GIC CodeToImpact Team 5 Frontend README
 
 ## Introduction
-Welcome to the frontend repository of the GIC CodeToImpact Team 5 application! This repository contains the code for the frontend part of our multi-container app. Here, we'll guide you through getting started, project structure, setting up the development environment, and running the frontend application.
-Table of Contents
+Welcome to the frontend repository of the GIC CodeToImpact Team 5 application! This repository contains the code for the frontend part of our multi-container app, built using Next.js and TypeScript. Here, we have documentation for getting started, project structure, setting up the development environment, and running the frontend application.
+
+## Table of Contents
 
 - [GIC CodeToImpact Team 5 Frontend README](#gic-codetoimpact-team-5-frontend-readme)
   - [Introduction](#introduction)
+  - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
+  - [Project Structure](#project-structure)
   - [Setting Up](#setting-up)
 
 ## Getting Started
@@ -15,7 +18,7 @@ Before you dive into the code, here's what you need to know to get started with 
 
 You can find the backend README [here](https://github.com/gic-codetoimpact-team5/codetoimpact-team5).
 
-Project Structure
+## Project Structure
 
 Our frontend project is organized as follows:
 
