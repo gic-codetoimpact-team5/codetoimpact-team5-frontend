@@ -31,9 +31,9 @@ import { MdOutlineCloudUpload } from 'react-icons/md';
 
 // Configure AWS SDK with your credentials and S3 bucket information
 AWS.config.update({
-  accessKeyId: 'AKIA4DD62ITU3OKMQXS4',
-  secretAccessKey: 'h1fXsPcWAr/5xf6q8u47hlTaNn2CYJPm3B12nkJX',
-  region: 'ap-southeast-1',
+  accessKeyId: '',
+  secretAccessKey: '',
+  region: '',
 });
 
 const s3 = new AWS.S3();
