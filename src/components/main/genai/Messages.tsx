@@ -1,4 +1,4 @@
-'use client';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -11,25 +11,18 @@ import {
 } from '@chakra-ui/react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import MessageBlock from 'components/chat/MessageBlock';
-import React, { useEffect, useState } from 'react';
-
-import {
-  messagesRenderThumb,
-  messagesRenderTrack,
-  messagesRenderView,
-} from 'components/scrollbar/Scrollbar';
 import { FaCircle } from 'react-icons/fa';
 import { IoPaperPlane } from 'react-icons/io5';
+import { messagesRenderThumb, messagesRenderTrack, messagesRenderView } from 'components/scrollbar/Scrollbar';
 
-export default function Messages(props: {
-  status: string;
-  name: string;
-  [x: string]: any;
-}) {
-  const { status, name, ...rest } = props;
+export default function Messages(props) {
+  const {
+    status,
+    name,
+    ...rest
+  } = props;
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
-
   const inputText = useColorModeValue('gray.700', 'gray.100');
   const blockBg = useColorModeValue('secondaryGray.300', 'navy.700');
   const brandButton = useColorModeValue('brand.500', 'brand.400');
@@ -39,15 +32,12 @@ export default function Messages(props: {
   );
   const borderColor = useColorModeValue('secondaryGray.400', 'whiteAlpha.100');
 
-  const [userMessages, setUserMessages] = useState<string[]>([]);
-  const [currentMessage, setCurrentMessage] = useState<string>('');
-  const [botMessages, setBotMessages] = useState<string[]>([]);
+  const [userMessages, setUserMessages] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [botMessages, setBotMessages] = useState([]);
 
-  // Function to send a user message to the Anthropic API and receive a response
-  const sendMessageToAPI = async (message: string) => {
+  const sendMessageToAPI = async (message) => {
     try {
-      // Make an API request to Anthropic API
-      // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
       const response = await fetch('YOUR_API_ENDPOINT', {
         method: 'POST',
         headers: {
@@ -58,8 +48,6 @@ export default function Messages(props: {
 
       if (response.ok) {
         const data = await response.json();
-
-        // Add the API response to bot messages
         setBotMessages([...botMessages, data.response]);
       } else {
         console.error('Failed to send message to API');
@@ -69,58 +57,22 @@ export default function Messages(props: {
     }
   };
 
-  // Function to handle user messages
   const handleUserMessage = () => {
     if (currentMessage.trim() === '') {
       return;
     }
 
-    console.log(currentMessage);
-
-    // Add the user's message to the list of user messages
     setUserMessages([...userMessages, currentMessage]);
-
-    console.log(userMessages);
-
-    // Send the user's message to the Anthropic API
     sendMessageToAPI(currentMessage);
-
-    setCurrentMessage(''); // Clear the input field after sending the message
+    setCurrentMessage('');
   };
 
   useEffect(() => {
-    // You can customize this logic to handle bot-initiated messages or other events
+    // Handle bot-initiated messages or other events here
   }, [currentMessage, userMessages, botMessages]);
 
   return (
     <Box h="100%" {...rest}>
-      <div>
-      {/* Display bot and user messages here */}
-      <div>
-        {userMessages.map((message, index) => (
-          <div key={`user-${index}`}>User: {message}</div>
-        ))}
-        {botMessages.map((message, index) => (
-          <div key={`bot-${index}`}>Bot: {message}</div>
-        ))}
-      </div>
-
-      {/* Input field for typing messages */}
-      <input
-        type="text"
-        placeholder="Type your message..."
-        value={currentMessage}
-        onChange={(e) => setCurrentMessage(e.target.value)}
-        onKeyPress={(e) => {
-          if (e.key === 'Enter') {
-            handleUserMessage();
-          }
-        }}
-      />
-
-      {/* Send button */}
-      <button onClick={handleUserMessage}>Send</button>
-    </div>
       <Flex
         px="34px"
         pb="25px"
@@ -180,11 +132,14 @@ export default function Messages(props: {
               maxW={{ base: '90%', lg: 'calc(100% - 80px)' }}
               boxSizing="border-box"
             >
-              <MessageBlock
-                content="Hello, I'm here to help you with Anthropic API queries about funds!"
-                time="09:00 PM"
-                side="left"
-              />
+              {botMessages.map((message, index) => (
+                <MessageBlock
+                  key={`bot-${index}`}
+                  content={message}
+                  time="09:23 PM"
+                  side="left"
+                />
+              ))}
             </Flex>
           </Flex>
           <Flex mb="50px" overflow="hidden" w="94%" ms="auto" justify="end">
@@ -195,11 +150,14 @@ export default function Messages(props: {
               boxSizing="border-box"
               alignItems="flex-end"
             >
-              <MessageBlock
-                seen
-                content="Hello, Kaveri! I have a question."
-                time="09:23 PM"
-              />
+              {userMessages.map((message, index) => (
+                <MessageBlock
+                  key={`user-${index}`}
+                  content={message}
+                  time="09:00 PM"
+                  side="right"
+                />
+              ))}
             </Flex>
           </Flex>
         </Scrollbars>
@@ -227,6 +185,13 @@ export default function Messages(props: {
               _placeholder={{ color: 'gray.400', fontSize: '16px' }}
               borderRadius={'50px'}
               placeholder={'Write your message...'}
+              value={currentMessage}
+              onChange={(e) => setCurrentMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleUserMessage();
+                }
+              }}
             />
           </InputGroup>
           <Button
@@ -238,6 +203,7 @@ export default function Messages(props: {
             minW={{ base: '30px', lg: '60px' }}
             minH={{ base: '30px', lg: '60px' }}
             variant="no-hover"
+            onClick={handleUserMessage}
           >
             <Icon
               as={IoPaperPlane}

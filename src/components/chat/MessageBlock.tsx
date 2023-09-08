@@ -1,5 +1,5 @@
 'use client';
-// Chakra imports
+
 import { Box, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { MdDoneAll } from 'react-icons/md';
@@ -17,6 +17,7 @@ export default function MessageBlock(props: {
   const blockBg = useColorModeValue('secondaryGray.300', 'navy.700');
   const brandBlockBg = useColorModeValue('brand.500', 'brand.400');
   const brandColor = useColorModeValue('brand.500', 'white');
+  
   return (
     <Box
       borderRadius={
